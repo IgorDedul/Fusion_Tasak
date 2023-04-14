@@ -1,0 +1,38 @@
+<body>
+  <script>
+//2) Функция. Принимает массив строк. Должна вернуть массив результатов проверки двух строк. 
+//Если у одной строки с последующей совпадают первый и последний символы, то true. 
+//Например ["asd", "afffd", "cc", "kk"]. Для такого массива функция должна вернуть [true, false, false]
+
+let setString = prompt('Задайте через запятую проверяемые строки или поставьте 0 для автозаполнения');
+let setArray = [];
+let resultArray = [];
+
+
+if (setString === '0') {
+  setArray = ["asd", "afffd", "cc", "kk"];
+} else {
+  setArray = setString.split(',');
+}
+alert(`Заданный Вами массив: ${setArray}`);
+
+function checkArray(setArray) {
+  for (let i = 1; i < setArray.length; i++) {
+
+    const isFirstLettersEqual = setArray[i-1][0] === setArray[i][0];
+    const isLastLettersEqual = setArray[i-1].slice(-1) === setArray[i].slice(-1);
+
+    resultArray.push(isFirstLettersEqual && isLastLettersEqual);
+
+  }
+  return resultArray;
+};
+
+resultArray = checkArray(setArray);
+
+alert(`Ваш результат: ${resultArray}`);
+
+  </script>
+
+
+</body>
