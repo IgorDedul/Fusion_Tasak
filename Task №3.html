@@ -2,27 +2,29 @@
   <script>
 //Написать функцию, которая принимает целочисленный number и рисует спиральную матрицу NxN, где N - входной параметр.
 
-let userInput = prompt('Введите размер квадратной матрицы');
-let matrixSize = Number(userInput);
-let matrixEndRow = matrixSize-1;
-let matrixEndColomn = matrixSize-1;
-let matrixStartRow = 0;
-let matrixStartColomn = 0;
-let valueElement = 1;
+const userInput = prompt('Введите размер квадратной матрицы');
+const matrixSize = Number(userInput);
 
-function createNewMatrix() {
-  let matrixResult = new Array(matrixSize);
+
+function createNewMatrix(size) {
+  const matrixResult = new Array(size);
 
   for (let i = 0; i < matrixResult.length; i++) {
-    matrixResult[i] = new Array(matrixSize);
+    matrixResult[i] = new Array(size);
   }
 
   return matrixResult;
 };
 
-let matrixResult = createNewMatrix();
+createNewMatrix(matrixSize);
 
-function completionMatrix(matrixResult) {
+function completionMatrix(matrixResult, size) {
+  let matrixEndRow = size-1;
+  let matrixEndColomn = size-1;
+  let matrixStartRow = 0;
+  let matrixStartColomn = 0;
+  let valueElement = 1;
+  
   do {
     for (let i = matrixStartColomn; i <= matrixEndColomn; i++) {
       matrixResult[matrixStartRow][i] = valueElement;
@@ -52,15 +54,13 @@ function completionMatrix(matrixResult) {
   return matrixResult;
 };
 
-completionMatrix(matrixResult);
-
 function showMatrixResult(matrixResult) {
   for (let i = 0; i < matrixResult.length; i++) {
     console.log(matrixResult[i]);
   }
 };
 
-showMatrixResult(matrixResult);
+showMatrixResult(completionMatrix(createNewMatrix(matrixSize), matrixSize));
 
   </script>
 

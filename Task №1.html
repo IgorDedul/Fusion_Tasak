@@ -5,18 +5,16 @@
 //но обновив все ссылки на всех уровнях (все ссылки на объекты или массивы должны быть новые). 
 //Функция не должна использовать хак с JSON.parse(JSON.stringify(data)).
 
-let setString = prompt('Задайте значение примитива или оставьте поле пустым если хотите ввести массив или объект');
-let element;
-let newElement;
+const setString = prompt('Задайте значение примитива или оставьте поле пустым если хотите ввести массив или объект');
 
 
-function getElement() {
-  if (setString === '') {
-    let arrayOrObject = prompt('Если хотите задать массив, через запятую введите элементы, укажите 0 для автозаполнения массива или 1 для автозаполнения объекта');
+function getElement(value) {
+  if (value === '') {
+    const arrayOrObject = prompt('Если хотите задать массив, через запятую введите элементы, укажите 0 для автозаполнения массива или 1 для автозаполнения объекта');
     if (arrayOrObject === '0') {
-      element = ['яблоко', 'слива', 'банан', 'груша', 'вишня']
+      return ['яблоко', 'слива', 'банан', 'груша', 'вишня']
     } else if (arrayOrObject === '1') {
-        element = {
+        return {
           name: 'Вася',
           surname: 'Стрельников',
           age: 40,
@@ -30,40 +28,32 @@ function getElement() {
           },
         }
       } else {
-        element = arrayOrObject.split(',');
+        return arrayOrObject.split(',');
       }
-  } else {
-    element = setString;
   }
-  return element;
+  return value;
+ 
 }
 
 function checkToPrimitive(element) {
-  if (typeof element === 'number' || 
-      typeof element === 'string' || 
-      typeof element === 'boolean' || 
-      typeof element === 'null' || 
-      typeof element === 'bigint' || 
-      typeof element === 'symbol') {
+  let newElement;
+  if (typeof element !== 'object') {
     newElement = element;
-  } else {
-    checkToArray(element);
+    return newElement;
   }
-  return newElement;
+  return checkToArray(element);
+
 }
 
 function checkToArray(element) {
-  if (Array.isArray(element)) {
-    newElement = [];
-    rewriteArray(element);
-  } else {
-    newElement = {};
-    rewriteObject(element);
-  }  
-  return newElement;
+  if (Array.isArray(element)) { 
+    return rewriteArray(element);
+  }
+  return rewriteObject(element);
 }
 
 function rewriteArray(array) {  
+  newElement = [];
   for (let i = 0; i < array.length; i++) {
     if (Array.isArray(array[i])){
       rewriteArray(array[i]);
@@ -75,7 +65,7 @@ function rewriteArray(array) {
 }
 
 function rewriteObject(obj) {
-  newElement ={};
+  let newElement ={};
   for (let key in obj) {
     if (typeof obj[key] === 'object') {
       newElement = {...newElement, [key]: rewriteObject(obj[key])};
@@ -86,18 +76,13 @@ function rewriteObject(obj) {
   return newElement;
 }
 
+const currentElement = getElement(setString);
+console.log(currentElement);
+alert(`Переданный Вами элемент ${currentElement}`);
 
-
-element = getElement();
-alert(`Переданный Вами элемент ${element}`);
-console.log(element);
-console.log(typeof element);
-console.log(Array.isArray(element));
-
-newElement = checkToPrimitive(element);
-console.log(newElement);
-console.log(newElement === element);
-alert(`Получен новый элемент: ${newElement}`);
+alert(`Получен новый элемент: ${checkToPrimitive(currentElement)}`);
+console.log(checkToPrimitive(currentElement));
+console.log(currentElement===checkToPrimitive(currentElement));
 
   </script>
 

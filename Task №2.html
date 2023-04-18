@@ -4,23 +4,25 @@
 //Если у одной строки с последующей совпадают первый и последний символы, то true. 
 //Например ["asd", "afffd", "cc", "kk"]. Для такого массива функция должна вернуть [true, false, false]
 
-let setString = prompt('Задайте через запятую проверяемые строки или поставьте 0 для автозаполнения');
-let setArray = [];
-let resultArray = [];
+let userString = prompt('Задайте через запятую проверяемые строки или поставьте 0 для автозаполнения');
 
-
-if (setString === '0') {
-  setArray = ["asd", "afffd", "cc", "kk"];
-} else {
-  setArray = setString.split(',');
+function setArray(string) {
+  let array = [];
+  if (string === '0') {
+    array = ["asd", "afffd", "cc", "kk"];
+  } else {
+    array = string.split(',');
+  }
+  alert(`Заданный Вами массив: ${array}`);
+  return array;
 }
-alert(`Заданный Вами массив: ${setArray}`);
 
-function checkArray(setArray) {
-  for (let i = 1; i < setArray.length; i++) {
+function checkArray(array) {
+  const resultArray = [];
+  for (let i = 1; i < array.length; i++) {
 
-    const isFirstLettersEqual = setArray[i-1][0] === setArray[i][0];
-    const isLastLettersEqual = setArray[i-1].slice(-1) === setArray[i].slice(-1);
+    const isFirstLettersEqual = array[i-1][0] === array[i][0];
+    const isLastLettersEqual = array[i-1].slice(-1) === array[i].slice(-1);
 
     resultArray.push(isFirstLettersEqual && isLastLettersEqual);
 
@@ -28,9 +30,8 @@ function checkArray(setArray) {
   return resultArray;
 };
 
-resultArray = checkArray(setArray);
 
-alert(`Ваш результат: ${resultArray}`);
+alert(`Ваш результат: ${checkArray(setArray(userString))}`);
 
   </script>
 
