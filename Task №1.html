@@ -36,10 +36,8 @@ function getElement(value) {
 }
 
 function checkToPrimitive(element) {
-  let newElement;
   if (typeof element !== 'object') {
-    newElement = element;
-    return newElement;
+    return element;
   }
   return checkToArray(element);
 
@@ -80,9 +78,10 @@ const currentElement = getElement(setString);
 console.log(currentElement);
 alert(`Переданный Вами элемент ${currentElement}`);
 
-alert(`Получен новый элемент: ${checkToPrimitive(currentElement)}`);
-console.log(checkToPrimitive(currentElement));
-console.log(currentElement===checkToPrimitive(currentElement));
+const cloneElement = checkToPrimitive(currentElement);
+alert(`Получен новый элемент: ${cloneElement}`);
+console.log(cloneElement);
+console.log(currentElement===cloneElement);
 
   </script>
 

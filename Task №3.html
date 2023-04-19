@@ -12,7 +12,6 @@ function createNewMatrix(size) {
   for (let i = 0; i < matrixResult.length; i++) {
     matrixResult[i] = new Array(size);
   }
-
   return matrixResult;
 };
 
@@ -60,7 +59,9 @@ function showMatrixResult(matrixResult) {
   }
 };
 
-showMatrixResult(completionMatrix(createNewMatrix(matrixSize), matrixSize));
+const newMatrix = createNewMatrix(matrixSize);
+const matrix = completionMatrix(newMatrix, matrixSize);
+showMatrixResult(matrix);
 
   </script>
 
